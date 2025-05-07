@@ -1,0 +1,637 @@
+\documentclass[11pt]{article}
+
+% ---------- Packages ----------
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{minted}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{listings}
+\usepackage{pagecolor}
+\usepackage{colortbl} % Required for \rowcolors
+\usepackage{inconsolata} % Monospaced font
+\usepackage[most]{tcolorbox}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\tcbuselibrary{skins, breakable, theorems}
+
+
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+% ---------- Dark Theme ----------
+\definecolor{backgroundblack}{HTML}{1E1E1E}
+\definecolor{textwhite}{HTML}{D4D4D4}
+\definecolor{linkblue}{HTML}{569CD6}
+\definecolor{codegray}{gray}{0.12}
+
+\pagecolor{backgroundblack}
+\color{textwhite}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=linkblue,
+    urlcolor=linkblue
+}
+%----------- Custom Reminder Box ----------
+
+
+\newtcolorbox{reminderbox}{
+    enhanced,
+    breakable,
+    colback=yellow!10,
+    colframe=orange!80!red,
+    coltitle=black,
+    title= Reminder,
+    fonttitle=\bfseries,
+    boxrule=0.8pt,
+    % Removed unsupported skin and size options
+    sharp corners=south,
+    left=5pt,
+    right=5pt,
+    top=5pt,
+    bottom=5pt
+  }
+
+
+% ---------- Header/Footer ----------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{textwhite}{Programming Systems 1}}
+\fancyhead[R]{\textcolor{textwhite}{\leftmark}}
+\fancyfoot[C]{\textcolor{textwhite}{\thepage}}
+
+% ---------- Title ----------
+\title{\vspace{1in} \Huge \textbf{\textcolor{linkblue}{Programming Systems 1}} \\[0.5em] \LARGE Lecture Notes \vspace{0.5in}}
+\author{\Large \textcolor{textwhite}{Samuel Montalbano} \\ \large Department of Computer Science \\ \large University of Denver}
+\date{\textcolor{textwhite}{\today}}
+
+% ---------- Section Styling ----------
+\titleformat{\section}
+  {\color{linkblue}\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\color{linkblue}\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\color{linkblue}\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% ---------- Code Styling ----------
+\setminted{
+    fontsize=\small,
+    bgcolor=codegray,
+    linenos,
+    breaklines,
+    frame=lines,
+    framesep=2mm,
+    style=monokai
+}
+
+% ---------- Begin Document ----------
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+
+\section{C: Cheat Sheet}
+
+\subsection{Basic Syntax}
+\begin{itemize}
+    \item \texttt{\#include <stdio.h>} - Include standard I/O library.
+    \item \texttt{int main()} - Entry point of the program.
+    \item \texttt{return 0;} - Indicates successful program termination.
+    \item \texttt{// Comment} - Single-line comment.
+    \item \texttt{/* Comment */} - Multi-line comment.
+\end{itemize}
+
+\subsection{Data Types}
+\begin{itemize}
+    \item \texttt{int} - Integer (e.g., \texttt{int x = 5;}).
+    \item \texttt{float} - Floating-point number (e.g., \texttt{float y = 3.14;}).
+    \item \texttt{double} - Double precision floating-point number.
+    \item \texttt{char} - Single character (e.g., \texttt{char c = 'A';}).
+    \item \texttt{bool} - Boolean (requires \texttt{\#include <stdbool.h>}).
+\end{itemize}
+
+\subsection{Control Structures}
+\begin{itemize}
+    \item \texttt{if (condition) \{...\}} - Conditional statement.
+    \item \texttt{else if (condition) \{...\}} - Additional condition.
+    \item \texttt{else \{...\}} - Default block.
+    \item \texttt{for (init; condition; increment) \{...\}} - For loop.
+    \item \texttt{while (condition) \{...\}} - While loop.
+    \item \texttt{do \{...\} while (condition);} - Do-while loop.
+    \item \texttt{switch (variable) \{ case value: ...; break; \}} - Switch statement.
+\end{itemize}
+
+\subsection{Functions}
+\begin{itemize}
+    \item Declaration: \texttt{int add(int a, int b);}
+    \item Definition: \texttt{int add(int a, int b) \{ return a + b; \}}
+    \item Call: \texttt{int result = add(5, 3);}
+\end{itemize}
+
+\subsection{Pointers}
+\begin{itemize}
+    \item Declaration: \texttt{int *p;}
+    \item Assign address: \texttt{p = \&x;}
+    \item Dereference: \texttt{*p = 10;}
+\end{itemize}
+
+\subsection{Memory Management}
+\begin{itemize}
+    \item \texttt{malloc(size)} - Allocate memory.
+    \item \texttt{calloc(num, size)} - Allocate and initialize memory.
+    \item \texttt{realloc(ptr, size)} - Resize memory block.
+    \item \texttt{free(ptr)} - Deallocate memory.
+\end{itemize}
+
+\subsection{Common Format Specifiers}
+\begin{itemize}
+    \item \texttt{\%d} - Integer.
+    \item \texttt{\%f} - Float.
+    \item \texttt{\%c} - Character.
+    \item \texttt{\%s} - String.
+    \item \texttt{\%p} - Pointer.
+\end{itemize}
+
+\subsection{Common Escape Sequences}
+\begin{itemize}
+    \item \texttt{\textbackslash n} - Newline.
+    \item \texttt{\textbackslash t} - Tab.
+    \item \texttt{\textbackslash \textbackslash} - Backslash.
+    \item \texttt{\textbackslash "} - Double quote.
+\end{itemize}
+
+\subsection{Best Practices}
+\begin{itemize}
+    \item Always initialize variables.
+    \item Use meaningful names for variables and functions.
+    \item Check return values of functions like \texttt{malloc} and \texttt{scanf}.
+    \item Avoid magic numbers; use constants or \texttt{\#define}.
+    \item Comment your code for clarity.
+\end{itemize}
+
+
+
+
+
+
+\section{Class 2: Introduction to C}
+
+\subsection{Basics of C Programming}
+\begin{minted}{c}
+// Basics of C programming
+#include <stdio.h>
+
+int main() {
+    int x; // Declare type of variables
+    x = 5;
+    return 0;
+}
+\end{minted}
+
+\subsection{Primitive Data Types}
+Primitive data types in C:
+
+\begin{table}[h!]
+\centering
+\rowcolors{2}{codegray}{}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Data Type} & \textbf{Description} & \textbf{Example} \\ \hline
+\texttt{char}      & Character type       & \texttt{char c = 'A';} \\ \hline
+\texttt{short}     & Short integer type   & \texttt{short s = 10;} \\ \hline
+\texttt{int}       & Integer type         & \texttt{int x = 5;} \\ \hline
+\texttt{long}      & Long integer type    & \texttt{long l = 100000L;} \\ \hline
+\texttt{float}     & Floating-point type  & \texttt{float y = 3.14f;} \\ \hline
+\texttt{double}    & Double precision type & \texttt{double d = 3.14159;} \\ \hline
+\texttt{Bool}      & Boolean type         & \texttt{Bool b = 1;} \\ \hline
+\end{tabular}
+\caption{Primitive Data Types in C}
+\label{tab:datatypes}
+\end{table}
+
+\begin{itemize}
+    \item Chars and ints are interoperable
+    \item No byte type in C
+    \item Huge negative numbers may mean you never initialized your variable
+    \item To print two stored integers: \texttt{printf("\%d \%d", x, y);}
+    \item Float: \texttt{printf("\%f", x);}
+    \item Double: \texttt{printf("\%lf", x);}
+    \item Char: \texttt{printf("\%c", x);}
+    \item String: \texttt{printf("\%s", x);}
+    \item Decimal: \texttt{printf("\%d", x);}
+    \item Pointer: \texttt{printf("\%p", x);}
+    \item Hexadecimal: \texttt{printf("\%x", x);}
+\end{itemize}
+
+\subsection{If Statements}
+\begin{minted}{c}
+#include <stdio.h>
+
+int main() {
+    int x = 5;
+    if (x > 0) {
+        printf("x is positive\n");
+    } else if (x < 0) {
+        printf("x is negative\n");
+    } else {
+        printf("x is zero\n");
+    }
+    return 0;
+}
+\end{minted}
+
+\begin{itemize}
+    \item \texttt{if} evaluates a condition and runs its block if true
+    \item \texttt{else if} adds another condition
+    \item \texttt{else} runs if all other conditions are false
+    \item \texttt{switch} allows multiple fixed values
+    \item \texttt{case} defines the individual branches
+\end{itemize}
+
+\subsection{Loops}
+
+\subsubsection{For Loop}
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+    for (int i = 0; i < 5; i++) {
+        printf("Iteration %d\n", i);
+    }
+    return 0;
+}
+\end{minted}
+
+\subsubsection{While Loop}
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+    int i = 0;
+    while (i < 5) {
+        printf("Iteration %d\n", i);
+        i++;
+    }
+    return 0;
+}
+\end{minted}
+
+\subsubsection{Do While Loop}
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+    int i = 0;
+    do {
+        printf("Iteration %d\n", i);
+        i++;
+    } while (i < 5);
+    return 0;
+}
+\end{minted}
+
+\subsection{Functions}
+\begin{minted}{c}
+#include <stdio.h>
+int add(int a, int b) {
+    return a + b;
+}
+int main() {
+    int result = add(5, 3);
+    printf("Result: %d\n", result);
+    return 0;
+}
+\end{minted}
+
+\begin{itemize}
+    \item Warning: Implicit declaration of function — define before use
+\end{itemize}
+
+\subsubsection{Function Prototypes}
+\begin{minted}{c}
+#include <stdio.h>
+int add(int a , int b); // Function prototype
+int main() {
+    int result = add(5, 3);
+    printf("Result: %d\n", result);
+    return 0;
+}
+int add(int a, int b) { // Function definition
+    return a + b;
+}
+\end{minted}
+\newpage
+
+\subsection{Arrays}
+A process is a running instance of a program. It has its own memory and resources.
+An array is a collection of elements of the same type, stored in contiguous memory locations.
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5}; // Declare and initialize an array
+    for (int i = 0; i < 5; i++) {
+        printf("Element %d: %d\n", i, arr[i]);
+    }
+    return 0;
+}
+\end{minted}
+\begin{itemize}
+    \item Arrays are zero-indexed
+    \item Use \texttt{sizeof(arr)/sizeof(arr[0])} to get the number of elements
+    \item Multidimensional arrays: \texttt{int arr[2][3];}
+    \item Accessing elements: \texttt{arr[i][j];}
+    \item Arrays are passed by reference
+    \item To pass an array to a function, use the syntax \texttt{void func(int arr[]);}
+    \item To pass a multidimensional array, use \texttt{void func(int arr[][3]);}
+    \item To pass a pointer to an array, use \texttt{void func(int *arr);}
+    \item To pass a pointer to a multidimensional array, use \texttt{void func(int (*arr)[3]);}
+    \item To pass a pointer to a pointer, use \texttt{void func(int **arr);}
+\end{itemize}
+
+\subsection{Pointers: AHHHHHHHHHHHHHHHHHHHHHHHHHHHH}
+\begin{reminderbox}
+    Learn Pointers, Learn Pointers, Learn Pointers, Learn Pointers!!!!!!!!!!!!!!!!!!!
+    \end{reminderbox}
+Pointers are variables that store the address of another variable. They are used for dynamic memory allocation, arrays, and functions.
+\begin{minted}{c}
+#include <stdio.h>
+int main() {
+    int x = 5;
+    int *p = &x; // Declare a pointer and assign it the address of x
+    printf("Value of x: %d\n", *p); // Dereference the pointer to get the value of x
+    return 0;
+}
+\end{minted}
+\begin{itemize}
+    \item Pointers are declared with an asterisk (\texttt{*})
+    \item The address operator (\texttt{\&}) is used to get the address of a variable
+    \item The dereference operator (\texttt{*}) is used to access the value at the address stored in the pointer
+    \item Pointers can be used to create dynamic arrays
+    \item Use \texttt{malloc} to allocate memory for a pointer
+    \item Use \texttt{free} to deallocate memory for a pointer
+\end{itemize}
+
+\newpage
+
+
+
+
+
+
+\section{Class 3: Pointer infomration}
+
+\subsection{Pointers written out}
+\begin{minted}{c}
+// Basics of C programming
+#include <stdio.h>
+
+int main() {
+    int x; // Declare type of variables
+    x = 5;
+    int *px=&x; // Declare a pointer to x
+    int y=*px; // Declare y and assign it the value of x
+    return 0;
+}
+\end{minted}
+
+\begin{minted}{c}
+    // Basics of C programming
+    #include <stdio.h>
+    
+    int main() {
+        int x; // Declare type of variables
+        x = 5;
+        int *px=&x; // Declare a pointer to x
+        return 0;
+    }
+    \end{minted}
+
+
+
+
+
+\section{Class 4: header/source files, incremental compilation, memory allocation, and garbage collection}
+\subsection{Incremental}
+\begin{minted}{c}
+// Basics of C programming
+#include <stdio.h>
+int doubleIt(int x){
+    return x*2;
+}
+int main() {
+    int a=5
+    int b=doubleIt(A)
+    printf("%d\n", b);
+
+    return 0;
+}
+
+\end{minted}
+
+Note that we can store functions like this in another file and reference it.
+To do so:
+\begin{itemize}
+    \item You can do gcc file 1 and file 2 -o run name. This executes the files directly.
+    \item Or you can use header files. Putting prototypes in a .h file. For example, double.h. Use \#include to include the .h file in the file with your main.
+    \item Either put .h in a standard location (Don't do that).
+    \item Put "" around the .h to show it's in the directory that you are currently in.
+    \item Good practice is putting structures above the prototypes.
+    \item 
+\end{itemize}
+To recompile a singular file:
+gcc -c file change.c
+gcc week3.o double.o -o foo
+./filename
+
+% In .h file include \\#ifndef DOUBLE_H
+% \\#define DOUBLE_H 
+% //prototype
+% \\#endif
+
+To automate the compile process:
+use makefile
+
+\begin{minted}{makefile}
+    # makefile
+    foo:
+        gcc week3.o double.o -o foo
+
+    week3.o:
+        gcc -c week3.c
+
+    double.o:
+        gcc -c double.c
+
+    clean:
+        rm *.o 
+        rm foo
+\end{minted}
+
+Using makefile:
+    use make foo to update file.
+
+\subsection{Information on Memory Allocator Lab}
+
+\section{Class 5: C++}
+Rational.h
+\begin{minted}{c}
+    int main(){
+        class Rational{
+            private:
+            int num;
+            int dem;
+            public:
+
+        };
+    
+    char *
+    }
+    
+\end{minted}
+
+Rational.cc
+\begin{minted}{c++}
+    int main(){
+    
+    char *
+    }
+    
+\end{minted}
+
+ratMain.cc
+\begin{minted}{c++}
+    int main(){
+    
+    char *
+    }
+    
+\end{minted}
+
+\section{Class 6: Bit Manipulation}
+
+\subsection{Bitwise}
+\begin{minted}{c}
+#include <stdio.h>
+int main(){
+    unsigned int a=5;
+    unsigned int b=6;
+    unsigned int c=a&1; // binary truth table. bitwise and.
+    unsigned int x=a|b ;//or
+    unsigned int x=a^b; //exclusive or. 1 or the other
+    unsigned int x=~a; //not 
+    unsigned int aa=6;
+    unsigned int bb=aa <<1; //bit shifting. Left Shift 1 bit. Also >>
+    
+    printf("%d\n",c);
+    char x=127;
+    char y=x+1;
+    print("%d\n,y");
+return 0;    
+}
+    
+\end{minted}
+
+
+\subsection{2s-compliment}
+
+
+
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Binary & Unsigned Value & Signed (Sign-Magnitude) & Two's Complement \\
+\midrule
+000 & 0 & 0 & 0 \\
+001 & 1 & 1 & 1 \\
+010 & 2 & 2 & 2 \\
+011 & 3 & 3 & 3 \\
+100 & 4 & -0 & -4 \\
+101 & 5 & -1 & -3 \\
+110 & 6 & -2 & -2 \\
+111 & 7 & -3 & -1 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+
+
+
+
+    
+\section*{Appendix}
+\addcontentsline{toc}{section}{Appendix}
+
+\subsection*{Format Specifiers in \texttt{printf}}
+\begin{itemize}
+    \item \texttt{\%d} - Decimal integer
+    \item \texttt{\%f} - Floating-point number
+    \item \texttt{\%lf} - Double precision floating-point number
+    \item \texttt{\%c} - Single character
+    \item \texttt{\%s} - String
+    \item \texttt{\%p} - Pointer address
+    \item \texttt{\%x} - Hexadecimal integer
+    \item \texttt{\%o} - Octal integer
+\end{itemize}
+
+\subsection*{Common Escape Sequences in C}
+\begin{itemize}
+    \item \texttt{\textbackslash n} - Newline
+    \item \texttt{\textbackslash t} - Horizontal tab
+    \item \texttt{\textbackslash r} - Carriage return
+    \item \texttt{\textbackslash \textbackslash} - Backslash
+    \item \texttt{\textbackslash "} - Double quote
+    \item \texttt{\textbackslash 0} - Null character
+\end{itemize}
+
+\subsection*{Memory Allocation Functions}
+\begin{itemize}
+    \item \texttt{malloc(size\_t size)} - Allocates memory of specified size and returns a pointer to it.
+    \item \texttt{calloc(size\_t num, size\_t size)} - Allocates memory for an array of \texttt{num} elements, each of \texttt{size} bytes, and initializes all bytes to zero.
+    \item \texttt{realloc(void *ptr, size\_t size)} - Resizes the memory block pointed to by \texttt{ptr} to \texttt{size} bytes.
+    \item \texttt{free(void *ptr)} - Frees the memory block pointed to by \texttt{ptr}.
+\end{itemize}
+
+\subsection*{Pointer Arithmetic}
+\begin{itemize}
+    \item Adding an integer to a pointer moves the pointer forward by that many elements.
+    \item Subtracting an integer from a pointer moves the pointer backward by that many elements.
+    \item Subtracting two pointers gives the number of elements between them.
+\end{itemize}
+
+\subsection*{Common Compiler Warnings and Errors}
+\begin{itemize}
+    \item \texttt{implicit declaration of function} - Ensure the function is declared before use or include the appropriate header file.
+    \item \texttt{segmentation fault} - Check for invalid memory access, such as dereferencing a null or uninitialized pointer.
+    \item \texttt{array index out of bounds} - Ensure array indices are within valid range.
+    \item \texttt{unused variable} - Remove or use declared variables to avoid warnings.
+\end{itemize}
+
+\subsection*{Multidimensional Arrays}
+\begin{itemize}
+    \item Declaration: \texttt{int arr[rows][cols];}
+    \item Accessing elements: \texttt{arr[i][j];}
+    \item Passing to functions: \texttt{void func(int arr[][cols]);}
+\end{itemize}
+
+\subsection*{Best Practices for Writing C Code}
+\begin{itemize}
+    \item Always initialize variables before use.
+    \item Use meaningful variable and function names.
+    \item Comment your code to explain complex logic.
+    \item Avoid magic numbers; use \texttt{\#define} or constants.
+    \item Check the return value of functions like \texttt{malloc} and \texttt{scanf}.
+    \item Use \texttt{const} for variables that should not be modified.
+\end{itemize}
+
+
+
+\end{document}
